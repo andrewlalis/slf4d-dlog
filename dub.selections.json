@@ -1,7 +1,7 @@
 {
 	"fileVersion": 1,
 	"versions": {
-		"dlog": "0.2.1",
+		"dlog": "0.3.3",
 		"slf4d": "1.3.0"
 	}
 }

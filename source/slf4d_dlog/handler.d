@@ -1,8 +1,12 @@
+/** 
+ * This module contains the SLF4D-DLog handler implementation.
+ */
 module slf4d_dlog.handler;
 
 import slf4d.handler;
 import slf4d.logger;
 import dlog;
+import slf4d_dlog.provider;
 
 /**
  * An SLF4D LogHandler implementation for DLog, which just maps all log calls
@@ -13,10 +17,19 @@ import dlog;
 class DLogHandler : LogHandler {
     private shared dlog.Logger dlogLogger;
 
+    /** 
+     * Constructs this handler with DLog's `DefaultLogger`.
+     */
     public shared this() {
         this(new DefaultLogger());
     }
 
+    /** 
+     * Constructs this handler with DLog's `DefaultLogger`, configured with the
+     * given message transform.
+     * Params:
+     *   messageTransform = The message transform to use.
+     */
     public shared this(dlog.MessageTransform messageTransform) {
         // TODO: Implement this once it is done in DLog.
         import std.stdio;
@@ -24,14 +37,27 @@ class DLogHandler : LogHandler {
         this(new DefaultLogger());
     }
 
+    /** 
+     * Constructs this handler with the given DLog Logger.
+     * Params:
+     *   logger = The logger to use.
+     */
     public shared this(dlog.Logger logger) {
         this.dlogLogger = cast(shared) logger;
     }
 
+    /** 
+     * Handles messages using the internal DLog Logger.
+     * Params:
+     *   msg = The message to handle.
+     */
     public shared void handle(LogMessage msg) {
+        Context ctx = new Context();
+        ctx.setLevel(DLogProvider.mapLevelToDLog(msg.level));
         synchronized(this.dlogLogger) {
             auto unsharedLogger = cast(dlog.Logger) this.dlogLogger;
-            unsharedLogger.log3!(const(string))(
+            unsharedLogger.logc(
+                ctx,
                 msg.message,
                 "",
                 "",
