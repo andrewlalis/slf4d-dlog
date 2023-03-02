@@ -1,0 +1,13 @@
+{
+	"authors": [
+		"Andrew Lalis"
+	],
+	"copyright": "Copyright © 2023, Andrew Lalis",
+	"dependencies": {
+		"dlog": "~>0.2.1",
+		"slf4d": "~>1.3.0"
+	},
+	"description": "DLog provider implementation for SLF4D",
+	"license": "MIT",
+	"name": "slf4d-dlog"
+}

@@ -1,0 +1,16 @@
+.dub
+docs.json
+__dummy.html
+docs/
+/slf4d-dlog
+slf4d-dlog.so
+slf4d-dlog.dylib
+slf4d-dlog.dll
+slf4d-dlog.a
+slf4d-dlog.lib
+slf4d-dlog-test-*
+*.exe
+*.o
+*.obj
+*.lst
+*.a
