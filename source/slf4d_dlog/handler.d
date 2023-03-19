@@ -51,7 +51,7 @@ class DLogHandler : LogHandler {
      * Params:
      *   msg = The message to handle.
      */
-    public shared void handle(LogMessage msg) {
+    public shared void handle(immutable LogMessage msg) {
         Context ctx = new Context();
         ctx.setLevel(DLogProvider.mapLevelToDLog(msg.level));
         synchronized(this.dlogLogger) {
@@ -60,11 +60,11 @@ class DLogHandler : LogHandler {
                 ctx,
                 msg.message,
                 "",
+                msg.sourceContext.fileName,
+                cast (ulong) msg.sourceContext.lineNumber,
+                msg.sourceContext.moduleName.dup,
                 "",
-                0,
-                cast(string) msg.sourceContext.moduleName.dup,
-                "",
-                cast(string) msg.sourceContext.functionName.dup
+                msg.sourceContext.functionName.dup
             );
         }
     }
